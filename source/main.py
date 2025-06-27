@@ -6,7 +6,7 @@ import numpy as np
 from untils import VectorList
 
 if __name__ == '__main__':
-    img = Image.open('../image/1.png').convert('L')
+    img = Image.open('../image/7.png').convert('L')
     img = img.resize((img.width // 2, img.height // 2))
 
     vector_list = VectorList.get_instance(img)
