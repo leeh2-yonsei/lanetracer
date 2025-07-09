@@ -1,17 +1,21 @@
-import numpy as np
 from PIL import Image, ImageOps
 
 import matplotlib.pyplot as plt
+import numpy as np
 
-import utils.visualization as vsl
-from utils.vector import VectorList
+import utils.visualization as visual
+from utils.img_process import power, sigmoid, binaryzation, classify
+from utils.vector import get_center
 
-img = Image.open('image/jpg/3.jpg').convert('L')
+img = Image.open('image/jpg/2.jpg').convert('L')
 img = ImageOps.exif_transpose(img)
-img = img.resize((200, 150))
+img = img.resize((240, 320))
 
-v_list = VectorList.get_instance(img, 1)
-v_list.sigmoid_weight()
+visual.show_direction(img, get_center(img))
 
-vsl.show_direction(img, v_list.center)
+p_img= sigmoid(img, 0.5, correction=False)
+visual.show_direction(p_img, get_center(p_img))
 
+img = img.crop((0, 160, 240, 320))
+p_img= sigmoid(img, 0.5, correction=False)
+visual.show_direction(p_img, get_center(p_img))

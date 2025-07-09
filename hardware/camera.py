@@ -11,3 +11,7 @@ def capture_image(waiting: float or int = 0.5):
 
     picam2.capture_file('photo.jpg')
     print('captured photo.jpg')
+
+
+if __name__ == '__main__':
+    capture_image()
