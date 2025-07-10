@@ -17,7 +17,7 @@ def main(root:str, mode:str):
 
     img = Image.open(root).convert('L')
     img = ImageOps.exif_transpose(img)
-    img = img.resize((200, 150))
+    img = img.resize((100, 75))
     original_img = img
     img = sigmoid(img, 0.5, correction=True)  # <y, x>
 
@@ -56,4 +56,4 @@ if __name__ == '__main__':
 
     elif args.mode == 'show':
         print("\033[1m\033[32mShow mode started successfully\033[0m")
-        main('photo.jpg', 'show')
+        main('photo.png', 'show')
