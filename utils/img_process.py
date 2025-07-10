@@ -8,7 +8,7 @@ def power(image: Image | np.ndarray, level: int):
         image = np.array(image) / 255.0
 
     image_array = np.array(image)
-    return image_array ** level
+    return 1 - (1-image_array)**level
 
 
 
@@ -19,8 +19,6 @@ def sigmoid(image: Image | np.ndarray, center: float, correction:bool = False) -
     img_array = np.array(image)
     if not correction:
         img_array = 1 / (1 + np.exp(-20 * (img_array - center)))
-        mean = img_array.mean()
-        pass
         return img_array
     else:
         while True:
