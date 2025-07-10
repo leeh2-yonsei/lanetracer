@@ -50,7 +50,9 @@ if __name__ == '__main__':
     elif args.mode == 'real':
         print("\033[1m\033[32mReal mode started successfully\033[0m")
         import hardware.arduino as arduino
-        main('photo.jpg', 'real')
+
+        for _ in range(int(input("Please Enter the number of repetition: "))):
+            main('photo.jpg', 'real')
 
     elif args.mode == 'show':
         print("\033[1m\033[32mShow mode started successfully\033[0m")
