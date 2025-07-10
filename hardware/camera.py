@@ -10,7 +10,7 @@ def capture_image(waiting: float or int = 0.5):
     time.sleep(waiting)
 
     picam2.capture_file('photo.jpg')
-    print('captured photo.jpg')
+    print('\033[1;4;32mcaptured! photo.jpg\033[0m')
 
 
 if __name__ == '__main__':
