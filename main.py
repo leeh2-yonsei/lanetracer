@@ -43,7 +43,8 @@ if __name__ == '__main__':
     if args.mode == 'test':
         start_time = time.time()
         print("\033[1m\033[1;32mTest mode started successfully\033[0m")
-        main('photo.jpg', 'test')
+        for _ in range(int(input("Please Enter the number of repetition: "))):
+            main('photo.jpg', 'test')
         end_time = time.time()
         print(f"The program is done in {(end_time - start_time):.2f} seconds.")
 
@@ -56,4 +57,5 @@ if __name__ == '__main__':
 
     elif args.mode == 'show':
         print("\033[1m\033[32mShow mode started successfully\033[0m")
-        main('photo.png', 'show')
+        for _ in range(int(input("Please Enter the number of repetition: "))):
+            main('photo.png', 'show')
