@@ -23,10 +23,11 @@ def main(root:str, mode:str):
 
     center = get_center(img)  # <x, y>
     vector = np.array([center[0] - img.shape[1]/2, img.shape[0] - center[1]])
-    info = direction.get_direction(vector / np.linalg.norm(vector))
+    info, message= direction.get_direction(vector / np.linalg.norm(vector))
 
     if mode == 'real':
         arduino.send(info)
+        print(f"Direction: {info} | {message}")
     elif mode == 'test':
         print('-' * 30)
         print(f"direction: {info} | vector: {vector / np.linalg.norm(vector)}")
