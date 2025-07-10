@@ -1,7 +1,8 @@
-import numpy as np
 from PIL import Image, ImageOps
-
 import argparse
+import time
+
+import numpy as np
 
 import hardware.camera as camera
 import utils.direction as direction
@@ -40,8 +41,11 @@ def main(root:str='photo.jpg', test:bool=False):
 if __name__ == '__main__':
     args = parser.parse_args()
     if args.test:
+        start_time = time.time()
         print("\033[1m\033[1;32mTest mode started successfully\033[0m")
         main(test=True)
+        end_time = time.time()
+        print(f"The program is done in {(end_time - start_time):.2f} seconds.")
     else:
         print("\033[1m\033[32mReal mode started successfully\033[0m")
         import hardware.arduino as arduino
