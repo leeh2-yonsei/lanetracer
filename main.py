@@ -34,8 +34,8 @@ def main(root:str, mode:str):
         print('-' * 30)
         print('-' * 30)
     elif mode == 'show':
-        from utils.visualization import show_direction_list
-        show_direction_list([img, original_img], cordinate=True)
+        from utils.visualization import show_line
+        show_line(img, line)
 
 
 if __name__ == '__main__':
