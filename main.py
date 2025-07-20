@@ -18,17 +18,18 @@ def main(root:str, mode:str):
     img = Image.open(root).convert('L')
     img = ImageOps.exif_transpose(img)
     img = img.resize((100, 75))
-    original_img = img
+    original_img = np.array(img) / 255.
     img = binaryzation(img, 0.5, correction=True)  # <y, x>
     img = classify(img, 1)
 
     center = get_center(img)  # <x, y>
     vector = np.array([center[0] - img.shape[1]/2, img.shape[0] - center[1]])
     info, message= direction.get_direction(vector / np.linalg.norm(vector))
+    angle = np.degrees(np.arctan2(vector[1], vector[0]))
 
     if mode == 'real':
-        arduino.send(info)
-        print(f"Direction: {info} | {message}")
+        arduino.send(int(angle))
+        print(f"Direction: {angle}degree | {message}")
     elif mode == 'test':
         print('-' * 30)
         print(f"direction: {info} | vector: {vector / np.linalg.norm(vector)}")
@@ -36,8 +37,8 @@ def main(root:str, mode:str):
         print(f"angle: {np.degrees(np.arctan2(vector[1], vector[0]))}")
         print('-' * 30)
     elif mode == 'show':
-        from utils.visualization import show_direction
-        show_direction(original_img, center)
+        from utils.visualization import show_direction_list
+        show_direction_list([img, original_img], cordinate=True)
 
 
 if __name__ == '__main__':
