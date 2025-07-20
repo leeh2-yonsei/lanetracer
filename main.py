@@ -28,7 +28,7 @@ def main(root:str, mode:str):
 
     if mode == 'real':
         new_angle = str(int(angle))
-        arduino.send(new_angle)
+        arduino.send(f"{new_angle}\n")
         print(f"Direction: {int(angle)} : degree")
     elif mode == 'test':
         print('-' * 30)
