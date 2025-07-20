@@ -4,7 +4,7 @@ from PIL.Image import Image
 import matplotlib.pyplot as plt
 from matplotlib.axes._axes import Axes
 
-from utils.vector import get_center
+from utils.vector import get_center, get_line
 
 
 def show_direction(img: Image | np.ndarray, center: tuple[float, float] = None):
@@ -40,6 +40,19 @@ def show_direction_list(img_list: list[np.ndarray], cordinate:bool = False):
         axes[i].axis('off')
 
     plt.show()
+
+def show_line(img: np.ndarray, center_list: list[tuple[float, float]] = None):
+    height, lenth = img.shape
+
+    if center_list is None:
+        center_list = get_line(img)
+
+    plt.imshow(img, cmap='gray')
+    plt.plot([center[0] for center in center_list], [center[1] for center in center_list], color='red')
+    plt.scatter([center[0] for center in center_list], [center[1] for center in center_list], color='red')
+    remove_axis(height)
+    plt.show()
+
 
 def remove_axis(height: int):
     plt.axis('off')

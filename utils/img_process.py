@@ -57,7 +57,7 @@ def classify(image: np.ndarray, iteration: int) -> np.ndarray:
     image = image.clip(max=1)
 
     lenth, height = image.shape[1], image.shape[0]  # width=32
-    image[int(0.85 * height):int(height), int(0.35 * lenth):int(0.65 * lenth)] = 0.
+    image[int(0.85 * height):int(height), int(0.30 * lenth):int(0.70 * lenth)] = 0.
 
     for _ in range(iteration):
         for h in range(height-2, 0, -1):

@@ -6,7 +6,7 @@ import numpy as np
 
 import hardware.camera as camera
 import utils.direction as direction
-from utils.vector import get_center
+from utils.vector import get_line, line_to_angle
 from utils.img_process import binaryzation, classify
 
 parser = argparse.ArgumentParser()
@@ -23,20 +23,15 @@ def main(root:str, mode:str):
     img = binaryzation(img, 0.5, correction=True)  # <y, x>
     img = classify(img, 1)
 
-    center = get_center(img)  # <x, y>
-    vector = np.array([center[0] - img.shape[1]/2, img.shape[0] - center[1]])
-    info, message= direction.get_direction(vector / np.linalg.norm(vector))
-    angle = np.degrees(np.arctan2(vector[1], vector[0]))
+    line = get_line(img)
+    angle = line_to_angle(line)
 
     if mode == 'real':
         new_angle = str(int(angle))
         arduino.send(new_angle)
-        print(f"Direction: {int(angle)} : degree | {message}")
+        print(f"Direction: {int(angle)} : degree")
     elif mode == 'test':
         print('-' * 30)
-        print(f"direction: {info} | vector: {vector / np.linalg.norm(vector)}")
-        print(f"center: {center} | criteria: {np.array([img.shape[1] / 2, img.shape[0]])}")
-        print(f"angle: {np.degrees(np.arctan2(vector[1], vector[0]))}")
         print('-' * 30)
     elif mode == 'show':
         from utils.visualization import show_direction_list
