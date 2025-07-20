@@ -18,6 +18,7 @@ def main(root:str, mode:str):
     img = Image.open(root).convert('L')
     img = ImageOps.exif_transpose(img)
     img = img.resize((100, 75))
+    img = img.transpose(method=Image.Transpose.FLIP_TOP_BOTTOM)
     original_img = np.array(img) / 255.
     img = binaryzation(img, 0.5, correction=True)  # <y, x>
     img = classify(img, 1)
