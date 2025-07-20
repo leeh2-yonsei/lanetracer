@@ -7,10 +7,10 @@ import numpy as np
 import hardware.camera as camera
 import utils.direction as direction
 from utils.vector import get_center
-from utils.img_process import sigmoid
+from utils.img_process import binaryzation, classify
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--mode', type=str, required=True, help='Choice Mode Type')
+parser.add_argument('--mode', type=str, required=True, help='Choice Mode Type: [real, test, show]')
 
 def main(root:str, mode:str):
     camera.capture_image(waiting=0.)
@@ -19,7 +19,8 @@ def main(root:str, mode:str):
     img = ImageOps.exif_transpose(img)
     img = img.resize((100, 75))
     original_img = img
-    img = sigmoid(img, 0.5, correction=True)  # <y, x>
+    img = binaryzation(img, 0.5, correction=True)  # <y, x>
+    img = classify(img, 1)
 
     center = get_center(img)  # <x, y>
     vector = np.array([center[0] - img.shape[1]/2, img.shape[0] - center[1]])
@@ -59,4 +60,4 @@ if __name__ == '__main__':
     elif args.mode == 'show':
         print("\033[1m\033[32mShow mode started successfully\033[0m")
         for _ in range(int(input("Please Enter the number of repetition: "))):
-            main('photo.png', 'show')
+            main('photo.jpg', 'show')
