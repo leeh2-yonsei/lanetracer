@@ -29,8 +29,9 @@ def main(root:str, mode:str):
     angle = np.degrees(np.arctan2(vector[1], vector[0]))
 
     if mode == 'real':
-        arduino.send(int(angle))
-        print(f"Direction: {angle}degree | {message}")
+        new_angle = str(int(angle))
+        arduino.send(new_angle)
+        print(f"Direction: {int(angle)} : degree | {message}")
     elif mode == 'test':
         print('-' * 30)
         print(f"direction: {info} | vector: {vector / np.linalg.norm(vector)}")
