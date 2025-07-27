@@ -19,8 +19,8 @@ def main(root:str, mode:str):
     img = Image.open(root).convert('L')
     img = ImageOps.exif_transpose(img)
     img = img.resize((100, 75))
-    #img = img.transpose(method=Image.Transpose.FLIP_TOP_BOTTOM)
-    #img = img.transpose(method=Image.Transpose.FLIP_LEFT_RIGHT)
+    img = img.transpose(method=Image.Transpose.FLIP_TOP_BOTTOM)
+    img = img.transpose(method=Image.Transpose.FLIP_LEFT_RIGHT)
 
     width, height = img.size
     img = img.crop((0, height // 2, width, height))
