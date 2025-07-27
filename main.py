@@ -21,6 +21,10 @@ def main(root:str, mode:str):
     img = img.transpose(method=Image.Transpose.FLIP_TOP_BOTTOM)
     img = img.transpose(method=Image.Transpose.FLIP_LEFT_RIGHT)
     original_img = np.array(img) / 255.
+
+    width, height = img.size
+    img = img.crop((0, height // 2, width, height))
+
     img = binaryzation(img, 0.5, correction=True)  # <y, x>
     img = classify(img, 1)
 
