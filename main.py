@@ -41,6 +41,8 @@ def main(root:str, mode:str):
     elif mode == 'show':
         from utils.visualization import show_line
         show_line(img, line)
+        print('-' * 30)
+        print(f'angle: {angle}')
 
 
 if __name__ == '__main__':
