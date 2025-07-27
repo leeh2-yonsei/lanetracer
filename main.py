@@ -9,6 +9,7 @@ import utils.direction as direction
 from utils.vector import get_line, line_to_angle
 from utils.img_process import binaryzation, classify
 from utils.visualization import show_line_list
+import hardware.arduino as arduino
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--mode', type=str, required=True, help='Choice Mode Type: [real, test, show]')
@@ -61,8 +62,6 @@ if __name__ == '__main__':
 
     elif args.mode == 'real':
         print("\033[1m\033[32mReal mode started successfully\033[0m")
-        import hardware.arduino as arduino
-
         for _ in range(int(input("Please Enter the number of repetition: "))):
             main('photo.jpg', 'real')
 
