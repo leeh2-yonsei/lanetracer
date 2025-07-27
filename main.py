@@ -38,9 +38,12 @@ def main(root:str, mode:str):
         print(f"Direction: {int(angle)} : degree")
     elif mode == 'test':
         print('-' * 30)
+        show_line_list([img, original_img], True)
+        new_angle = str(int(angle))
+        arduino.send(f"{new_angle}\n")
+        print(f"Direction: {int(angle)} : degree")
         print('-' * 30)
     elif mode == 'show':
-        from utils.visualization import show_line
         show_line_list([img, original_img], True)
         print('-' * 30)
         print(f'angle: {angle}')

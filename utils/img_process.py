@@ -23,7 +23,7 @@ def sigmoid(image: Image | np.ndarray, center: float, correction:bool = False) -
         while True:
             test = sigmoid(img_array, center, False)
             mean = test.mean()
-            if mean < 0.75:
+            if mean < 0.70:
                 center -= 0.02
             else:
                 return test
@@ -40,18 +40,13 @@ def binaryzation(image: Image | np.ndarray, criteria: float, correction:bool = F
     else:
         while True:
             test = binaryzation(image, criteria, False)
-            if test.mean() < 0.75:
+            if test.mean() < 0.70:
                 criteria -= 0.02
             else:
                 return test
 
 
 def classify(image: np.ndarray, iteration: int) -> np.ndarray:
-    """
-    :param iteration: interation
-    :param image: binary image
-    :return: classified image
-    """
     lenth, height = image.shape[1], image.shape[0]
     area_original = image[int(0.85 * height):int(height), int(0.30 * lenth):int(0.70 * lenth)]
 

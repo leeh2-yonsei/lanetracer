@@ -45,4 +45,7 @@ def line_to_angle(center_list: list[tuple[float, float]]) -> float:
         angle = np.arctan2(vector[1], vector[0])
         angle_list.append(angle)
 
-    return np.degrees(sum(angle_list) / len(angle_list))
+    if len(angle_list) == 0:
+        return 90
+    else:
+        return np.degrees(sum(angle_list) / len(angle_list))
