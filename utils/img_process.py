@@ -52,11 +52,12 @@ def classify(image: np.ndarray, iteration: int) -> np.ndarray:
     :param image: binary image
     :return: classified image
     """
+    lenth, height = image.shape[1], image.shape[0]
+    area_original = image[int(0.85 * height):int(height), int(0.30 * lenth):int(0.70 * lenth)]
 
     image = image + 0.5
     image = image.clip(max=1)
 
-    lenth, height = image.shape[1], image.shape[0]  # width=32
     image[int(0.85 * height):int(height), int(0.30 * lenth):int(0.70 * lenth)] = 0.
 
     for _ in range(iteration):
@@ -72,6 +73,7 @@ def classify(image: np.ndarray, iteration: int) -> np.ndarray:
                     image[h-1:h+2,l-1:l+2] = image[h-1:h+2, l-1:l+2].clip(min=0)
 
     image = (image * 2).clip(max=1)
+    image[int(0.85 * height):int(height), int(0.30 * lenth):int(0.70 * lenth)] = area_original
 
     return image
 

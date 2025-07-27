@@ -8,6 +8,7 @@ import hardware.camera as camera
 import utils.direction as direction
 from utils.vector import get_line, line_to_angle
 from utils.img_process import binaryzation, classify
+from utils.visualization import show_line_list
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--mode', type=str, required=True, help='Choice Mode Type: [real, test, show]')
@@ -18,12 +19,12 @@ def main(root:str, mode:str):
     img = Image.open(root).convert('L')
     img = ImageOps.exif_transpose(img)
     img = img.resize((100, 75))
-    img = img.transpose(method=Image.Transpose.FLIP_TOP_BOTTOM)
-    img = img.transpose(method=Image.Transpose.FLIP_LEFT_RIGHT)
-    original_img = np.array(img) / 255.
+    #img = img.transpose(method=Image.Transpose.FLIP_TOP_BOTTOM)
+    #img = img.transpose(method=Image.Transpose.FLIP_LEFT_RIGHT)
 
     width, height = img.size
     img = img.crop((0, height // 2, width, height))
+    original_img = np.array(img) / 255.
 
     img = binaryzation(img, 0.5, correction=True)  # <y, x>
     img = classify(img, 1)
@@ -40,7 +41,7 @@ def main(root:str, mode:str):
         print('-' * 30)
     elif mode == 'show':
         from utils.visualization import show_line
-        show_line(img, line)
+        show_line_list([img, original_img], True)
         print('-' * 30)
         print(f'angle: {angle}')
 

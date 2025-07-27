@@ -54,6 +54,25 @@ def show_line(img: np.ndarray, center_list: list[tuple[float, float]] = None):
     plt.show()
 
 
+def show_line_list(img_list: list[np.ndarray], cordinate:bool = False):
+
+    if cordinate:
+        line_list = [get_line(img_list[0])] * len(img_list)
+    else:
+        line_list = [get_line(img) for img in img_list]
+
+    axes: list[Axes]
+    fig, axes = plt.subplots(len(line_list), 1)
+    for i in range(len(line_list)):
+        axes[i].imshow(img_list[i], cmap='gray')
+        axes[i].plot([center[0] for center in line_list[i]], [center[1] for center in line_list[i]], color='red')
+        axes[i].scatter([center[0] for center in line_list[i]], [center[1] for center in line_list[i]], color='red')
+        axes[i].axis('off')
+
+    plt.show()
+
+
+
 def remove_axis(height: int):
     plt.axis('off')
     plt.ylim(height, 0)
