@@ -5,7 +5,6 @@ import time
 import numpy as np
 
 import hardware.camera as camera
-import utils.direction as direction
 from utils.vector import get_line, line_to_angle
 from utils.img_process import binaryzation, classify
 from utils.visualization import show_line_list
