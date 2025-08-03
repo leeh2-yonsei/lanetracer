@@ -26,7 +26,7 @@ def main(root:str, mode:str):
     img = img.crop((0, height // 2, width, height))
     original_img = np.array(img) / 255.
 
-    img = binaryzation(img, 0.5, correction=True)  # <y, x>
+    img = binaryzation(img, 1, correction=True)  # <y, x>
     img = classify(img, 1)
 
     line = get_line(img)
@@ -38,11 +38,13 @@ def main(root:str, mode:str):
         print(f"Direction: {int(angle)} : degree")
     elif mode == 'test':
         print('-' * 30)
-        show_line_list([img, original_img], True)
         new_angle = str(int(angle))
-        arduino.send(f"{new_angle}\n")
         print(f"Direction: {int(angle)} : degree")
         print('-' * 30)
+        show_line_list([img, original_img], True)
+        arduino.send(f"{new_angle}\n")
+        time.sleep(0.25)
+        arduino.send(f"{0}\n")
     elif mode == 'show':
         show_line_list([img, original_img], True)
         print('-' * 30)
