@@ -32,6 +32,30 @@ def main(root:str, mode:str):
     line = get_line(img)
     angle = line_to_angle(line)
 
+    x_position = sum([vector[0] for vector in line]) / (len(line) * 100)
+
+    print(f"x_position: {x_position}")
+    if x_position < 0.35:
+        arduino.send('60\n')
+        time.sleep(0.10)
+        arduino.send('90\n')
+        time.sleep(0.10)
+        arduino.send('120\n')
+        time.sleep(0.10)
+        arduino.send('-10\n')
+        time.sleep(0.10)
+        arduino.send('0\n')
+    elif x_position > 0.65:
+        arduino.send('120\n')
+        time.sleep(0.10)
+        arduino.send('90\n')
+        time.sleep(0.10)
+        arduino.send('60\n')
+        time.sleep(0.10)
+        arduino.send('-10\n')
+        time.sleep(0.10)
+        arduino.send('0\n')
+
     if mode == 'real':
         new_angle = str(int(angle))
         arduino.send(f"{new_angle}\n")
