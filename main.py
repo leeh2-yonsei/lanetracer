@@ -56,9 +56,10 @@ def main(root:str, mode:str):
             arduino.send(f"{0}\n")
 
     elif mode == 'show':
-        show_line_list([img, original_img], True)
         print('-' * 30)
-        print(f'angle: {angle}-degree | X_pos: {x_position:.3f}%')
+        print(f'angle: {angle:.3f}-degree | X_pos: {x_position:.3f}%')
+        print('-' * 30)
+        show_line_list([img, original_img], True)
 
 
 if __name__ == '__main__':
