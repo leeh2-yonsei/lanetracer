@@ -34,41 +34,27 @@ def main(root:str, mode:str):
 
     x_position = sum([vector[0] for vector in line]) / (len(line) * 100)
 
-    print(f"x_position: {x_position}")
-    if x_position < 0.35:
-        arduino.send('60\n')
-        time.sleep(0.10)
-        arduino.send('90\n')
-        time.sleep(0.10)
-        arduino.send('120\n')
-        time.sleep(0.10)
-        arduino.send('-10\n')
-        time.sleep(0.10)
-        arduino.send('0\n')
-    elif x_position > 0.65:
-        arduino.send('120\n')
-        time.sleep(0.10)
-        arduino.send('90\n')
-        time.sleep(0.10)
-        arduino.send('60\n')
-        time.sleep(0.10)
-        arduino.send('-10\n')
-        time.sleep(0.10)
-        arduino.send('0\n')
+    if mode in ['real', 'test']:
+        if (85 < angle < 95) and (len(line) > 3):
+            if x_position < 0.30:
+                arduino.parallel(direction=False)
+            elif x_position > 0.70:
+                arduino.parallel(direction=True)
 
-    if mode == 'real':
-        new_angle = str(int(angle))
-        arduino.send(f"{new_angle}\n")
-        print(f"Direction: {int(angle)} : degree")
-    elif mode == 'test':
-        print('-' * 30)
-        new_angle = str(int(angle))
-        print(f"Direction: {int(angle)} : degree")
-        print('-' * 30)
-        show_line_list([img, original_img], True)
-        arduino.send(f"{new_angle}\n")
-        time.sleep(0.25)
-        arduino.send(f"{0}\n")
+        if mode == 'real':
+            new_angle = str(int(angle))
+            arduino.send(f"{new_angle}\n")
+            print(f"Direction: {int(angle)} : degree")
+        elif mode == 'test':
+            print('-' * 30)
+            new_angle = str(int(angle))
+            print(f"Direction: {int(angle)} : degree")
+            print('-' * 30)
+            show_line_list([img, original_img], True)
+            arduino.send(f"{new_angle}\n")
+            time.sleep(0.25)
+            arduino.send(f"{0}\n")
+
     elif mode == 'show':
         show_line_list([img, original_img], True)
         print('-' * 30)
