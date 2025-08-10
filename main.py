@@ -26,7 +26,7 @@ def main(root:str, mode:str):
     img = img.crop((0, height // 2, width, height))
     original_img = np.array(img) / 255.
 
-    img = sigmoid(img, 0.21, correction=False)  # <y, x>
+    img = sigmoid(img, 0.35, correction=False)  # <y, x>
 
     line = get_line(img)
     angle = line_to_angle(line)
@@ -34,24 +34,39 @@ def main(root:str, mode:str):
     x_position = sum([vector[0] for vector in line]) / (len(line) * 100)
 
     if mode in ['real', 'test']:
-        if (85 < angle < 95) and (len(line) > 3):
-            if x_position < 0.30:
-                arduino.parallel(direction=False)
-            elif x_position > 0.70:
-                arduino.parallel(direction=True)
+        light = img.mean()
+        
+        if x_position < 0.20:
+            angle -= 15
+        elif x_position > 0.8:
+            angle += 15
+            
+        
+        if light > 0.95:
+            angle = -10
+        
 
         if mode == 'real':
             arduino.send(f"{str(int(angle))}\n")
             print(f"Direction: {int(angle)}-degree | X_pos: {x_position:.3f}%")
-            time.sleep(0.25)
+            
+            if 80 <= angle <= 100:
+                time.sleep(0.25)
+            else:
+                time.sleep(0.15)
             arduino.send(f"{0}\n")
+            time.sleep(0.10)
         elif mode == 'test':
             print('-' * 30)
             print(f"Direction: {int(angle)}-degree | X_pos: {x_position:.3f}%")
             print('-' * 30)
             show_line_list([img, original_img], True)
             arduino.send(f"{str(int(angle))}\n")
-            time.sleep(0.25)
+            
+            if 80 <= angle <= 100:
+                time.sleep(0.25)
+            else:
+                time.sleep(0.15)
             arduino.send(f"{0}\n")
 
     elif mode == 'show':
@@ -60,6 +75,8 @@ def main(root:str, mode:str):
         print(f'mean of img: {img.mean()}')
         print('-' * 30)
         show_line_list([img, original_img], True)
+        
+        time.sleep(0.1)
 
 
 if __name__ == '__main__':

@@ -17,7 +17,7 @@ def sigmoid(image: Image | np.ndarray, center: float, correction:bool = False) -
 
     img_array = np.array(image)
     if not correction:
-        img_array = 1 / (1 + np.exp(-20 * (img_array - center)))
+        img_array = 1 / (1 + np.exp(-25 * (img_array - center)))
         return img_array
     else:
         while True:
