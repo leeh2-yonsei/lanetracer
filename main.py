@@ -42,23 +42,23 @@ def main(root:str, mode:str):
                 arduino.parallel(direction=True)
 
         if mode == 'real':
-            new_angle = str(int(angle))
-            arduino.send(f"{new_angle}\n")
-            print(f"Direction: {int(angle)} : degree")
+            arduino.send(f"{str(int(angle))}\n")
+            print(f"Direction: {int(angle)}-degree | X_pos: {x_position:.3f}%")
+            time.sleep(0.25)
+            arduino.send(f"{0}\n")
         elif mode == 'test':
             print('-' * 30)
-            new_angle = str(int(angle))
-            print(f"Direction: {int(angle)} : degree")
+            print(f"Direction: {int(angle)}-degree | X_pos: {x_position:.3f}%")
             print('-' * 30)
             show_line_list([img, original_img], True)
-            arduino.send(f"{new_angle}\n")
+            arduino.send(f"{str(int(angle))}\n")
             time.sleep(0.25)
             arduino.send(f"{0}\n")
 
     elif mode == 'show':
         show_line_list([img, original_img], True)
         print('-' * 30)
-        print(f'angle: {angle}')
+        print(f'angle: {angle}-degree | X_pos: {x_position:.3f}%')
 
 
 if __name__ == '__main__':
