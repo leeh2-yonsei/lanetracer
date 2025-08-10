@@ -6,7 +6,7 @@ import numpy as np
 
 import hardware.camera as camera
 from utils.vector import get_line, line_to_angle
-from utils.img_process import binaryzation, classify
+from utils.img_process import binaryzation, classify, sigmoid
 from utils.visualization import show_line_list
 import hardware.arduino as arduino
 
@@ -26,8 +26,7 @@ def main(root:str, mode:str):
     img = img.crop((0, height // 2, width, height))
     original_img = np.array(img) / 255.
 
-    img = binaryzation(img, 1, correction=True)  # <y, x>
-    img = classify(img, 1)
+    img = sigmoid(img, 0.21, correction=False)  # <y, x>
 
     line = get_line(img)
     angle = line_to_angle(line)
@@ -58,6 +57,7 @@ def main(root:str, mode:str):
     elif mode == 'show':
         print('-' * 30)
         print(f'angle: {angle:.3f}-degree | X_pos: {x_position:.3f}%')
+        print(f'mean of img: {img.mean()}')
         print('-' * 30)
         show_line_list([img, original_img], True)
 
