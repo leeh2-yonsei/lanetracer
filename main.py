@@ -51,9 +51,9 @@ def main(root:str, mode:str):
             print(f"Direction: {int(angle)}-degree | X_pos: {x_position:.3f}%")
             
             if 80 <= angle <= 100:
-                time.sleep(0.25)
+                time.sleep(0.24)
             else:
-                time.sleep(0.15)
+                time.sleep(0.14)
             arduino.send(f"{0}\n")
             time.sleep(0.10)
         elif mode == 'test':
